@@ -1,0 +1,6 @@
+.vscode/
+venv/
+test_files/
+scratch.py
+__pycache__/
+.DS_Store
