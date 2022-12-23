@@ -111,13 +111,13 @@ def get_articles_section_html(articles) -> str:
 
 def build_reference_string(article) -> str:
     article_data = article.find('p').findall('span')
-    return "{authors} ({year}). {title}. {sourcetitle}, {pgrg1}:{pgrg2}.".format(
+    return "{authors} ({year}). {title}. {sourcetitle}, {vol}:{pgrg}.".format(
         authors=get_field_from_article(article_data, "authors", 0),
         year=get_field_from_article(article_data, "year", 1),
         title=get_field_from_article(article_data, "title", 2),
         sourcetitle=get_field_from_article(article_data, "sourcetitle", 3),
-        pgrg1=get_field_from_article(article_data, "pgrg", 4),
-        pgrg2=get_field_from_article(article_data, "pgrg", 5)
+        vol=get_field_from_article(article_data, "vol", 4),
+        pgrg=get_field_from_article(article_data, "pgrg", 5)
     )
 
 
