@@ -14,19 +14,25 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "pep_subscription_updates" {
-  bucket = "pep-subscription-updates-${var.env}"
+  bucket = "${var.stack_name}-updates-${var.env}"
   tags = {
-    STAGE = var.env
+    stage = var.env
+    stack = var.stack_name
   }
 }
 
 module "subscription_utility_lambda" {
   source = "terraform-aws-modules/lambda/aws"
 
-  function_name = "pep-subscription-mailer-utility-${var.env}"
+  function_name = "${var.stack_name}-handler-${var.env}"
   source_path   = "../app"
   handler       = "subscription_service.handler"
   runtime       = "python3.8"
+
+  tags = {
+    stage = var.env
+    stack = var.stack_name
+  }
 
   environment_variables = {
     "TEST"   = "test-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
