@@ -40,6 +40,24 @@ module "subscription_utility_lambda" {
   }
 }
 
+resource "aws_iam_role_policy" "sm_policy" {
+  name = "sm_access_permissions"
+  role = module.subscription_utility_lambda.lambda_role_name
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "secretsmanager:GetSecretValue",
+        ]
+        Effect   = "Allow"
+        Resource = "*"
+      },
+    ]
+  })
+}
+
 
 resource "aws_s3_bucket_notification" "pep_subscription_notification" {
   bucket = aws_s3_bucket.pep_subscription_updates.id
