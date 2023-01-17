@@ -13,6 +13,10 @@ provider "aws" {
   region = var.aws_region
 }
 
+locals {
+  pads_auth_token_secret_path = "${var.stack_name}/pads_auth_token/${var.env}}"
+}
+
 resource "aws_s3_bucket" "pep_subscription_updates" {
   bucket = "${var.stack_name}-updates-${var.env}"
   tags = {
@@ -35,8 +39,7 @@ module "subscription_utility_lambda" {
   }
 
   environment_variables = {
-    "TEST"   = "test-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-    "TEEST2" = "test2-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    "PADS_AUTH_TOKEN_SECRET" = local.pads_auth_token_secret_path
   }
 }
 
