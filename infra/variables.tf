@@ -7,5 +7,5 @@ variable "aws_region" {
 }
 
 variable "stack_name" {
-  default = "pep-subscription"
+  default = "pep-subscription-mailer"
 }
