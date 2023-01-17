@@ -14,9 +14,9 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "pep_subscription_updates" {
-  bucket = "pep-subscription-updates-production"
+  bucket = "pep-subscription-updates-${var.env}"
   tags = {
-    STAGE = "production"
+    STAGE = var.env
   }
 }
 
