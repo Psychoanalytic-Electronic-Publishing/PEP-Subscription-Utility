@@ -13,6 +13,13 @@ provider "aws" {
   region = var.aws_region
 }
 
+resource "aws_s3_bucket" "pep_subscription_updates" {
+  bucket = "pep-subscription-updates-production"
+  tags = {
+    STAGE = "production"
+  }
+}
+
 module "subscription_utility_lambda" {
   source = "terraform-aws-modules/lambda/aws"
 
