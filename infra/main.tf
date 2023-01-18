@@ -70,7 +70,7 @@ resource "aws_iam_role_policy" "sm_policy" {
           "secretsmanager:GetSecretValue",
         ]
         Effect   = "Allow"
-        Resource = "*"
+        Resource = aws_secretsmanager_secret.pads_auth_token.arn
       },
     ]
   })
