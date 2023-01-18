@@ -1,4 +1,12 @@
 terraform {
+  cloud {
+    organization = "psychoanalytic-publishing"
+
+    workspaces {
+      name = "pep-subscription-mailer-staging"
+    }
+  }
+
   required_providers {
     aws = {
       source  = "hashicorp/aws"
