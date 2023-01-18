@@ -1,5 +1,7 @@
 terraform {
-  backend "s3" {}
+  backend "s3" {
+    key = "global/s3/subscription-updates-stage.tfstate"
+  }
 
   required_providers {
     aws = {
