@@ -5,6 +5,7 @@ module "subscription_utility_lambda" {
   source_path   = "../../app"
   handler       = "subscription_service.handler"
   runtime       = "python3.8"
+  timeout       = 60
 
   tags = {
     stage = var.env
