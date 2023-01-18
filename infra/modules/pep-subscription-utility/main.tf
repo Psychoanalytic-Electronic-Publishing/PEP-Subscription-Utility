@@ -1,18 +1,3 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 4.16"
-    }
-  }
-
-  required_version = ">= 1.2.0"
-}
-
-provider "aws" {
-  region = var.aws_region
-}
-
 locals {
   pads_auth_token_secret_path = "${var.stack_name}/pads-auth-token/${var.env}"
 }
@@ -44,7 +29,7 @@ module "subscription_utility_lambda" {
   source = "terraform-aws-modules/lambda/aws"
 
   function_name = "${var.stack_name}-handler-${var.env}"
-  source_path   = "../app"
+  source_path   = "../../app"
   handler       = "subscription_service.handler"
   runtime       = "python3.8"
 
