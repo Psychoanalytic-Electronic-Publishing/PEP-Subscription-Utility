@@ -17,7 +17,7 @@ variable "aws_region" {
 
 variable "stack_name" {
   description = "Root name for the stack"
-  default     = "pep-subscription-mailer"
+  default     = "pep-subscription-updates"
 }
 
 variable "email_from_address" {

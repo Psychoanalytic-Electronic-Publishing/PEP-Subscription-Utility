@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "pep_subscription_updates" {
-  bucket = "${var.stack_name}-updates-${var.env}"
+  bucket = "${var.stack_name}-${var.env}"
   tags = {
     stage = var.env
     stack = var.stack_name
