@@ -1,17 +1,51 @@
 # Environment variables
 variable "pads_auth_token" {
-  type = string
+  description = "Pads auth token for use with the PADS UserAlerts API"
+  type        = string
 }
 
 # Local variables
 variable "env" {
-  default = "dev"
+  description = "Environment name"
+  default     = "dev"
 }
 
 variable "aws_region" {
-  default = "us-east-1"
+  description = "AWS region"
+  default     = "us-east-1"
 }
 
 variable "stack_name" {
-  default = "pep-subscription-mailer"
+  description = "Root name for the stack"
+  default     = "pep-subscription-mailer"
+}
+
+variable "email_from_address" {
+  description = "value for the 'From' field in the email"
+  type        = string
+  default     = "no-reply@pep-web.org"
+}
+
+variable "email_subject_issue_notifications" {
+  description = "value for the 'Subject' field in the email"
+  type        = string
+  default     = "PEP Stage Update Alert"
+}
+
+variable "logo_image_url" {
+  description = "URL of the logo image to be included in the email"
+  type        = string
+  default     = "https://stage-api.pep-web.org/v2/Documents/Image"
+}
+
+variable "pads_useralerts_url" {
+  description = "URL of the PADS UserAlerts API"
+  type        = string
+  default     = "https://stage-pads.pep-web.org/pepsecure/api/v1/UserAlerts"
+}
+
+variable "web_url" {
+  description = "URL of the PEP-Web site"
+  type        = string
+  default     = "https://stage.pep-web.org"
 }

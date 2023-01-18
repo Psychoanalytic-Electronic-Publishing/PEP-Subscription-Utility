@@ -54,7 +54,13 @@ module "subscription_utility_lambda" {
   }
 
   environment_variables = {
-    "PADS_AUTH_TOKEN_SECRET" = local.pads_auth_token_secret_path
+    "PADS_AUTH_TOKEN_SECRET"            = local.pads_auth_token_secret_path
+    "EMAIL_FROM_ADDRESS"                = var.email_from_address
+    "EMAIL_SUBJECT_ISSUE_NOTIFICATIONS" = var.email_subject_issue_notifications
+    "LOGO_IMAGE_URL"                    = var.logo_image_url
+    "PADS_USERALERTS_URL"               = var.pads_useralerts_url
+    "S3_BUCKET_SUBSCRIPTIONS"           = aws_s3_bucket.pep_subscription_updates.id
+    "WEB_URL"                           = var.web_url
   }
 }
 
