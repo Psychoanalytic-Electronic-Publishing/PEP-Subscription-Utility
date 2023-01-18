@@ -1,5 +1,6 @@
 import enum
 
+
 class NotificationType(enum.Enum):
     Journal = 2
     Video = 3

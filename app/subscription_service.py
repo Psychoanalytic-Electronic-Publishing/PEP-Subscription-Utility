@@ -2,7 +2,7 @@ import os
 import glob
 import traceback
 import sys
-from app.utilities import file_utility, pads_utility, email_utility
+from utilities import file_utility, pads_utility, email_utility
 
 
 def handler(event, context):
