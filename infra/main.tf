@@ -19,7 +19,7 @@ locals {
 
 resource "aws_secretsmanager_secret" "pads_auth_token" {
   name        = local.pads_auth_token_secret_path
-  description = "Pads auth token for pep subscription mailer"
+  description = "PADS auth token for PEP subscription mailer"
 
   tags = {
     stage = var.env
