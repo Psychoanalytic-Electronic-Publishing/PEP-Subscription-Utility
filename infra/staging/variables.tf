@@ -7,7 +7,7 @@ variable "pads_auth_token" {
 # Local variables
 variable "env" {
   description = "Environment name"
-  default     = "test2"
+  default     = "staging"
 }
 
 variable "aws_region" {
