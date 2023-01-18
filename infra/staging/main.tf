@@ -1,11 +1,5 @@
 terraform {
-  cloud {
-    organization = "psychoanalytic-publishing"
-
-    workspaces {
-      name = "pep-subscription-mailer-staging"
-    }
-  }
+  backend "s3" {}
 
   required_providers {
     aws = {
