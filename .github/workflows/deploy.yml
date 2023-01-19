@@ -70,7 +70,7 @@ jobs:
           path: |
             infra/staging/tfplan.out
             infra/staging/builds/
-          key: ${{ github.run_id }}-terraform-plan
+          key: terraform-plan
 
   apply:
     needs: [plan]
@@ -120,8 +120,23 @@ jobs:
           path: |
             infra/staging/tfplan.out
             infra/staging/builds/
-          key: ${{ github.run_id }}-terraform-plan
+          key: terraform-plan
 
       - name: Terraform Apply
         id: apply
         run: terraform apply -auto-approve "tfplan.out"
+
+  clean:
+    needs: [apply]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clear Plan Cache
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.actions.deleteActionsCacheByKey({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              key: terraform-plan,
+            })
