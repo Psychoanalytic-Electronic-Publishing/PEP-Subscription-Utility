@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+env:
+  TF_RECREATE_MISSING_LAMBDA_PACKAGE: false
+
 jobs:
   plan:
     concurrency:
@@ -81,8 +84,6 @@ jobs:
       run:
         working-directory: ./infra/staging
     runs-on: ubuntu-latest
-    env:
-      TF_RECREATE_MISSING_LAMBDA_PACKAGE: false
     steps:
       - name: Checkout
         uses: actions/checkout@v3
