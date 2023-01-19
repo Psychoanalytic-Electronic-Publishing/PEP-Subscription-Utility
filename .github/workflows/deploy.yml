@@ -11,8 +11,6 @@ jobs:
     defaults:
       run:
         working-directory: ./infra/staging
-    permissions:
-      pull-requests: write
     runs-on: ubuntu-latest
     env:
       TF_VAR_pads_auth_token: ${{ secrets.PADS_AUTH_TOKEN }}
@@ -51,4 +49,31 @@ jobs:
 
       - name: Terraform Plan
         id: plan
-        run: terraform plan -no-color
+        run: terraform plan -no-color -out tfplan.out
+
+      - name: Upload Terraform Plan
+        uses: actions/upload-artifact@master
+        with:
+          name: tfplan
+          path: ./tfplan.out
+
+  apply:
+    environment: staging-manual
+    defaults:
+      run:
+        working-directory: ./infra/staging
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.3.7
+
+      - name: Download Terraform Plan
+        uses: actions/download-artifact@master
+        with:
+          name: tfplan
+          path: ./tfplan.out
+
+      - name: Apply Terraform Plan
+        run: terraform apply "tfplan.out"
