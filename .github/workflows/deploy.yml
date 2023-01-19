@@ -55,6 +55,7 @@ jobs:
         run: terraform plan -no-color
 
   apply:
+    needs: [plan]
     if: always() && needs.plan.result == 'success'
     concurrency:
       group: ${{ github.head_ref }}-apply
