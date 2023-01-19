@@ -28,9 +28,9 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-      - name: Restore Terraform Deps
-        id: cache-deps-restore
-        uses: actions/cache/restore@v3
+      - name: Cache Terraform Deps
+        id: cache-deps
+        uses: actions/cache@v3
         with:
           path: |
             infra/staging/.terraform.lock.hcl
@@ -62,15 +62,6 @@ jobs:
       - name: Terraform Plan
         id: plan
         run: terraform plan -no-color -out tfplan.out
-
-      - name: Cache Terraform Deps
-        id: cache-deps-save
-        uses: actions/cache/restore@v3
-        with:
-          path: |
-            infra/staging/.terraform.lock.hcl
-            infra/staging/.terraform
-          key: ${{ runner.os }}-terraform-deps
 
       - name: Cache Terraform Plan
         id: cache-plan-save
