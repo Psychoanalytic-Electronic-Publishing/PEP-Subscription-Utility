@@ -59,8 +59,8 @@ jobs:
         uses: actions/cache/save@v3
         with:
           path: |
-            tfplan.out
-            builds/
+            infra/staging/tfplan.out
+            infra/staging/builds/
           key: ${{ runner.os }}-tfplan
 
   apply:
@@ -95,8 +95,8 @@ jobs:
         uses: actions/cache/restore@v3
         with:
           path: |
-            tfplan.out
-            builds/
+            infra/staging/tfplan.out
+            infra/staging/builds/
           key: ${{ runner.os }}-tfplan
 
       - name: Terraform Apply
