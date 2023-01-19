@@ -138,5 +138,5 @@ jobs:
             github.rest.actions.deleteActionsCacheByKey({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              key: terraform-plan,
+              key: "terraform-plan",
             })
