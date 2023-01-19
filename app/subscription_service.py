@@ -2,7 +2,7 @@ import os
 import glob
 import traceback
 import sys
-from app.utilities import file_utility, pads_utility, email_utility
+from utilities import file_utility, pads_utility, email_utility
 
 
 def handler(event, context):
@@ -20,7 +20,8 @@ def handler(event, context):
             # send emails to pads users based on their subscription types
             email_utility.send_issue_update_emails(pads_users, update_data)
         except Exception as e:
-            print(f'ERROR Unable to send PEP subscription notification messages: {e}')
+            print(
+                f'ERROR Unable to send PEP subscription notification messages: {e}')
             traceback.print_exception(*sys.exc_info())
         finally:
             try:
@@ -28,4 +29,3 @@ def handler(event, context):
                 print(os.listdir('/tmp/'))
             except Exception as e:
                 print(f'Error cleaning up files: {e}')
-

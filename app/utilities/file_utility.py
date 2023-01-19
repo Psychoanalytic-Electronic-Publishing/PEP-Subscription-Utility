@@ -49,4 +49,3 @@ def parse_subscription_files(dir_path):
     except Exception as err:
         print(f'Error parsing subscription file: {err}')
         raise
-

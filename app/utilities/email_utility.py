@@ -1,8 +1,8 @@
 import boto3
 import os
 import typing
-from app.notification_type import NotificationType
-from app.exceptions.no_issue_updates_exception import NoIssueUpdatesException
+from notification_type import NotificationType
+from exceptions.no_issue_updates_exception import NoIssueUpdatesException
 from botocore.exceptions import ClientError
 
 ses_client = boto3.client('ses')
@@ -14,7 +14,8 @@ video_journals = ['AFCVS', 'BPSIVS', 'IJPVS', 'IPSAVS',
 
 def send_issue_update_emails(pads_users: str, update_data):
     email_subject = os.environ.get('EMAIL_SUBJECT_ISSUE_NOTIFICATIONS')
-    issue_html_by_notification_type = get_issue_html_by_notification_type(update_data)
+    issue_html_by_notification_type = get_issue_html_by_notification_type(
+        update_data)
     if (len(issue_html_by_notification_type)) == 0:
         print('No updates to send')
         return
@@ -25,8 +26,10 @@ def send_issue_update_emails(pads_users: str, update_data):
                 issue_html_by_notification_type,
                 NotificationType.get_pads_user_notification_types(user))
 
-            print(f'Sending notification to {user.get("EmailAddress", "")}. journal {user.get("SendJournalAlerts", "")}, video {user.get("SendVideoAlerts", "")}')
-            send_email(user.get('EmailAddress', ''), email_subject, formatted_email)
+            print(
+                f'Sending notification to {user.get("EmailAddress", "")}. journal {user.get("SendJournalAlerts", "")}, video {user.get("SendVideoAlerts", "")}')
+            send_email(user.get('EmailAddress', ''),
+                       email_subject, formatted_email)
 
         except NoIssueUpdatesException as niue:
             print(niue)
@@ -85,7 +88,7 @@ def get_issue_html_by_notification_type(update_data) -> dict:
     issue_html_by_notification_type = {}
 
     for issue in update_data:
-        issue_id=issue.find('issue_id/src').text
+        issue_id = issue.find('issue_id/src').text
         issue_updates = issue_template.format(
             logo_image_url=f'{logo_image_url}/banner{issue_id}Logo.gif',
             alt_text=f'{issue_id}',
@@ -93,7 +96,8 @@ def get_issue_html_by_notification_type(update_data) -> dict:
 
         # TODO currently _PEPCurrent is using a single loader so we shouldn't have new journals split up, but might need to revisit this.
         issue_type = NotificationType.Video if issue_id in video_journals else NotificationType.Journal
-        issue_html_by_notification_type[issue_type] = issue_html_by_notification_type.get(issue_type, '') + issue_updates
+        issue_html_by_notification_type[issue_type] = issue_html_by_notification_type.get(
+            issue_type, '') + issue_updates
         print(f'processing issue src: {issue_id}, type: {issue_type}')
     return issue_html_by_notification_type
 
