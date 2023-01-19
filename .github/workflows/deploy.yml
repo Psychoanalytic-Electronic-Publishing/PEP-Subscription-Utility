@@ -35,7 +35,7 @@ jobs:
           path: |
             infra/staging/.terraform.lock.hcl
             infra/staging/.terraform
-          key: ${{ runner.os }}-terraform-deps
+          key: terraform-deps
 
       - name: Setup Python 3.8
         uses: actions/setup-python@v4
@@ -70,7 +70,8 @@ jobs:
           path: |
             infra/staging/tfplan.out
             infra/staging/builds/
-          key: ${{ runner.os }}-terraform-plan
+          key: ${{ context.run_id }}-terraform-plan
+          restore-keys: ${{ github.run_id }}-terraform-plan
 
   apply:
     needs: [plan]
@@ -111,7 +112,7 @@ jobs:
           path: |
             infra/staging/.terraform.lock.hcl
             infra/staging/.terraform
-          key: ${{ runner.os }}-terraform-deps
+          key: terraform-deps
 
       - name: Restore Terraform Plan
         id: cache-plan-restore
@@ -120,7 +121,7 @@ jobs:
           path: |
             infra/staging/tfplan.out
             infra/staging/builds/
-          key: ${{ runner.os }}-terraform-plan
+          key: ${{ github.run_id }}-terraform-plan
 
       - name: Terraform Apply
         id: apply
