@@ -73,6 +73,8 @@ jobs:
             infra/staging/tfplan.out
             infra/staging/builds/
           key: terraform-plan
+    outputs:
+      planExitcode: ${{ steps.plan.outputs.exitcode }}
 
   apply:
     needs: [plan]
