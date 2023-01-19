@@ -50,6 +50,4 @@ variable "web_url" {
   default     = "https://stage.pep-web.org"
 }
 
-variable "trigger_fmt_failure"{
-  type=string
-}
+fwaifnwaifgn 
