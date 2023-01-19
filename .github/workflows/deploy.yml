@@ -5,9 +5,6 @@ on:
     branches:
       - main
 
-env:
-  TF_PLUGIN_CACHE_DIR: ${{ github.workspace }}/.terraform.d/plugin-cache
-
 jobs:
   plan:
     concurrency:
@@ -35,7 +32,9 @@ jobs:
         id: cache-deps
         uses: actions/cache@v3
         with:
-          path: ${{ env.TF_PLUGIN_CACHE_DIR }}
+          path: |
+            infra/staging/.terraform.lock.hcl
+            infra/staging/.terraform
           key: ${{ runner.os }}-terraform-deps
 
       - name: Setup Python 3.8
@@ -104,7 +103,9 @@ jobs:
         id: cache-deps-restore
         uses: actions/cache/restore@v3
         with:
-          path: ${{ env.TF_PLUGIN_CACHE_DIR }}
+          path: |
+            infra/staging/.terraform
+            infra/staging/.terraform.lock.hcl
           key: ${{ runner.os }}-terraform-deps
 
       - name: Restore Terraform Plan
