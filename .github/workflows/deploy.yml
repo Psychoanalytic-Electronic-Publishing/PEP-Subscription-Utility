@@ -50,9 +50,18 @@ jobs:
         id: validate
         run: terraform validate -no-color
 
+      - name: Cache Terraform Plan
+        id: cache-plan-save
+        uses: actions/cache/save@v3
+        with:
+          path: |
+            tfplan.out
+            builds/
+          key: ${{ runner.os }}-tfplan
+
       - name: Terraform Plan
         id: plan
-        run: terraform plan -no-color
+        run: terraform plan -no-color -out tfplan.out
 
   apply:
     needs: [plan]
@@ -66,7 +75,6 @@ jobs:
         working-directory: ./infra/staging
     runs-on: ubuntu-latest
     env:
-      TF_VAR_pads_auth_token: ${{ secrets.PADS_AUTH_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -78,24 +86,20 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-      - name: Setup Python 3.8
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.8"
-
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.3.7
 
-      - name: Terraform Init
-        id: init
-        run: terraform init -backend-config=../backend.conf
-
-      - name: Terraform Validate
-        id: validate
-        run: terraform validate -no-color
+      - name: Cache Terraform Plan
+        id: cache-plan-restore
+        uses: actions/cache/restore@v3
+        with:
+          path: |
+            tfplan.out
+            builds/
+          key: ${{ runner.os }}-tfplan
 
       - name: Terraform Apply
         id: apply
-        run: terraform apply -auto-approve
+        run: terraform apply -auto-approve "tfplan.out"
