@@ -55,7 +55,7 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: tfplan
-          path: ./tfplan.out
+          path: tfplan.out
 
   apply:
     environment: staging-manual
@@ -73,7 +73,7 @@ jobs:
         uses: actions/download-artifact@master
         with:
           name: tfplan
-          path: ./tfplan.out
+          path: tfplan.out
 
       - name: Apply Terraform Plan
         run: terraform apply "tfplan.out"
