@@ -49,5 +49,3 @@ variable "web_url" {
   type        = string
   default     = "https://stage.pep-web.org"
 }
-
-fwaifnwaifgn 
