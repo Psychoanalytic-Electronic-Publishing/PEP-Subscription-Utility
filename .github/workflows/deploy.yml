@@ -61,7 +61,7 @@ jobs:
           path: |
             infra/staging/tfplan.out
             infra/staging/builds/
-          key: ${{ runner.os }}-tfplan
+          key: ${{ runner.os }}-terraform
 
   apply:
     needs: [plan]
@@ -97,7 +97,7 @@ jobs:
           path: |
             infra/staging/tfplan.out
             infra/staging/builds/
-          key: ${{ runner.os }}-tfplan
+          key: ${{ runner.os }}-terraform
 
       - name: Terraform Apply
         id: apply
