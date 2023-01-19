@@ -70,8 +70,7 @@ jobs:
           path: |
             infra/staging/tfplan.out
             infra/staging/builds/
-          key: ${{ context.run_id }}-terraform-plan
-          restore-keys: ${{ github.run_id }}-terraform-plan
+          key: ${{ github.run_id }}-terraform-plan
 
   apply:
     needs: [plan]
