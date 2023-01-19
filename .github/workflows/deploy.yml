@@ -50,6 +50,10 @@ jobs:
         id: validate
         run: terraform validate -no-color
 
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -no-color -out tfplan.out
+
       - name: Cache Terraform Plan
         id: cache-plan-save
         uses: actions/cache/save@v3
@@ -58,10 +62,6 @@ jobs:
             tfplan.out
             builds/
           key: ${{ runner.os }}-tfplan
-
-      - name: Terraform Plan
-        id: plan
-        run: terraform plan -no-color -out tfplan.out
 
   apply:
     needs: [plan]
