@@ -7,12 +7,15 @@ on:
 
 jobs:
   plan:
+    environment: staging
     defaults:
       run:
         working-directory: ./infra/staging
     permissions:
       pull-requests: write
     runs-on: ubuntu-latest
+    env:
+      TF_VAR_pads_auth_token: ${{ secrets.PADS_AUTH_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
