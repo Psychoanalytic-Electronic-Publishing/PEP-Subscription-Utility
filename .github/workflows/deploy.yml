@@ -8,7 +8,7 @@ on:
 jobs:
   plan:
     concurrency:
-      group: ${{ github.head_ref }}
+      group: ${{ github.head_ref }}-plan
       cancel-in-progress: true
     environment: staging
     defaults:
@@ -56,7 +56,7 @@ jobs:
 
   apply:
     concurrency:
-      group: ${{ github.head_ref }}
+      group: ${{ github.head_ref }}-apply
       cancel-in-progress: true
     environment: staging-manual
     defaults:
