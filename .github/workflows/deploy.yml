@@ -8,10 +8,10 @@ on:
 env:
   TF_RECREATE_MISSING_LAMBDA_PACKAGE: false
 
+concurrency: ci-${{ github.ref }}
+
 jobs:
   plan:
-    concurrency:
-      group: ${{ github.head_ref }}-plan
     defaults:
       run:
         working-directory: ./infra/staging
@@ -78,8 +78,6 @@ jobs:
   apply:
     needs: [plan]
     if: always() && needs.plan.result == 'success' && needs.plan.outputs.planExitcode == 2
-    concurrency:
-      group: ${{ github.head_ref }}-apply
     environment: staging
     defaults:
       run:
