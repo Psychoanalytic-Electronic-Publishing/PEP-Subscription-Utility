@@ -7,6 +7,9 @@ on:
 
 jobs:
   plan:
+    concurrency:
+      group: ${{ github.head_ref }}
+      cancel-in-progress: true
     environment: staging
     defaults:
       run:
@@ -52,6 +55,9 @@ jobs:
         run: terraform plan -no-color
 
   apply:
+    concurrency:
+      group: ${{ github.head_ref }}
+      cancel-in-progress: true
     environment: staging-manual
     defaults:
       run:
