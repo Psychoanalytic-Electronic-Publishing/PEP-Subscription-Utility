@@ -74,7 +74,6 @@ jobs:
       run:
         working-directory: ./infra/staging
     runs-on: ubuntu-latest
-    env:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
