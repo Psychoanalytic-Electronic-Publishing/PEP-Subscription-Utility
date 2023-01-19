@@ -51,7 +51,7 @@ jobs:
         continue-on-error: true
 
       - name: Echo event name
-        run: echo ${github.event_name}
+        run: echo '${{github.event_name}}'
 
       - uses: actions/github-script@v6
         if: github.event_name == 'pull_request'
