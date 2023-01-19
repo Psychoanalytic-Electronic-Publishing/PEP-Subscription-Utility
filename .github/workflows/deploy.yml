@@ -55,7 +55,7 @@ jobs:
         run: terraform plan -no-color
 
   apply:
-    if: needs.test-1.result == 'success'
+    if: needs.plan.result == 'success'
     concurrency:
       group: ${{ github.head_ref }}-apply
       cancel-in-progress: true
