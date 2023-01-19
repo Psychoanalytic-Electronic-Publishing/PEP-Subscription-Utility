@@ -1,4 +1,4 @@
-name: Deploy to staging
+name: Plan and deploy infrastructure
 
 on:
   push:
