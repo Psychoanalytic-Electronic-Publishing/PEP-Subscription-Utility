@@ -44,7 +44,7 @@ jobs:
           echo 'plugin_cache_dir="$HOME/.terraform.d/plugin-cache"' >~/.terraformrc
           mkdir --parents ~/.terraform.d/plugin-cache
 
-      - name: Cache Terraform
+      - name: Cache Terraform Plugins
         uses: actions/cache@v3
         with:
           path: |
@@ -52,6 +52,12 @@ jobs:
           key: ${{ runner.os }}-terraform-${{ hashFiles('**/.terraform.lock.hcl') }}
           restore-keys: |
             ${{ runner.os }}-terraform-
+
+      - name: Cache Terraform Lock
+        uses: actions/cache@v3
+        with:
+          path: infra/staging
+          key: ${{ runner.os }}-terraform-${{ github.run_id }}
 
       - name: Terraform fmt
         id: fmt
@@ -100,7 +106,7 @@ jobs:
         with:
           terraform_version: 1.3.7
 
-      - name: Cache Restore
+      - name: Cache Plugin Restore
         uses: actions/cache/restore@v3
         with:
           path: |
@@ -108,6 +114,12 @@ jobs:
           key: ${{ runner.os }}-terraform-${{ hashFiles('**/.terraform.lock.hcl') }}
           restore-keys: |
             ${{ runner.os }}-terraform-
+
+      - name: Cache Terraform Lock Restore
+        uses: actions/cache/restore@v3
+        with:
+          path: infra/staging
+          key: ${{ runner.os }}-terraform-${{ github.run_id }}
 
       - name: Terraform Apply
         id: apply
