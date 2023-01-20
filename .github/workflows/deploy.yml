@@ -67,7 +67,13 @@ jobs:
 
       - name: Terraform Plan
         id: plan
-        run: terraform plan -detailed-exitcode
+        run: terraform plan -detailed-exitcode -out tfplan.out
+
+      - name: Cache Terraform Plan
+        uses: actions/cache/save@v3
+        with:
+          path: infra/staging/tfplan.out
+          key: terraform-plan
     outputs:
       planExitcode: ${{ steps.plan.outputs.exitcode }}
 
@@ -110,8 +116,26 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-terraform-
 
-      - name: Terraform Init
-        run: terraform init -input=false -backend-config=../backend.conf
+      - name: Restore Terraform Plan
+        uses: actions/cache/restore@v3
+        with:
+          path: infra/staging/tfplan.out
+          key: terraform-plan
 
       - name: Terraform Apply
         run: terraform apply -input=false -auto-approve
+
+ clean:
+    needs: [apply]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clear Plan Cache
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.actions.deleteActionsCacheByKey({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              key: "terraform-plan",
+            })
