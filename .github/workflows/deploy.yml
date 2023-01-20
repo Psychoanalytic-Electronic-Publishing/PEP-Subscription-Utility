@@ -39,11 +39,21 @@ jobs:
         with:
           terraform_version: 1.3.7
 
-      - id: plan
-        uses: jordanallen-dev/terraform-cached/plan@v0.5
-        with:
-          terraform-root-path: infra/staging
-          backend-config: ../backend.conf
+      - name: Terraform fmt
+        id: fmt
+        run: terraform fmt -check
+
+      - name: Terraform Init
+        id: init
+        run: terraform init -backend-config=../backend.conf
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -detailed-exitcode
     outputs:
       planExitcode: ${{ steps.plan.outputs.planExitcode }}
 
