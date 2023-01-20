@@ -125,7 +125,7 @@ jobs:
           key: terraform-plan
 
       - name: Terraform Apply
-        run: terraform apply -input=false -auto-approve
+        run: terraform apply -input=false -auto-approve "tfplan.out"
 
   clean:
     needs: [apply]
