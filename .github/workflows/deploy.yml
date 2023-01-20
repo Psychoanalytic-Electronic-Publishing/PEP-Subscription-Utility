@@ -42,7 +42,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - id: plan
-        uses: jordanallen-dev/terraform-cached/plan@v0.3
+        uses: jordanallen-dev/terraform-cached/plan@v0.4
         with:
           terraform-root-path: infra/staging
           backend-config: ../backend.conf
