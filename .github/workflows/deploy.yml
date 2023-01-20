@@ -110,7 +110,7 @@ jobs:
             ${{ runner.os }}-terraform-
 
       - name: Terraform Init
-        run: terraform init
+        run: terraform init -backend-config=../backend.conf
 
       - name: Terraform Apply
         id: apply
