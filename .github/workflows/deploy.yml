@@ -61,7 +61,7 @@ jobs:
 
       - name: Terraform Init
         id: init
-        run: terraform init -backend-config=../backend.conf
+        run: terraform init -input=false -backend-config=../backend.conf
 
       - name: Terraform Validate
         id: validate
@@ -112,8 +112,8 @@ jobs:
             ${{ runner.os }}-terraform-
 
       - name: Terraform Init
-        run: terraform init -backend-config=../backend.conf
+        run: terraform init -input=false -backend-config=../backend.conf
 
       - name: Terraform Apply
         id: apply
-        run: terraform apply -auto-approve
+        run: terraform apply -input=false -auto-approve
