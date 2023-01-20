@@ -29,15 +29,6 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-      - name: Cache Terraform Deps
-        id: cache-deps
-        uses: actions/cache@v3
-        with:
-          path: |
-            infra/staging/.terraform.lock.hcl
-            infra/staging/.terraform
-          key: terraform-deps
-
       - name: Setup Python 3.8
         uses: actions/setup-python@v4
         with:
@@ -48,32 +39,14 @@ jobs:
         with:
           terraform_version: 1.3.7
 
-      - name: Terraform fmt
-        id: fmt
-        run: terraform fmt -check
-
-      - name: Terraform Init
-        id: init
-        run: terraform init -backend-config=../backend.conf
-
-      - name: Terraform Validate
-        id: validate
-        run: terraform validate -no-color
-
-      - name: Terraform Plan
+      - uses: actions/checkout@v3
         id: plan
-        run: terraform plan -detailed-exitcode -out tfplan.out
-
-      - name: Cache Terraform Plan
-        id: cache-plan-save
-        uses: actions/cache/save@v3
+        uses: jordanallen-dev/terraform-cached/plan@v1
         with:
-          path: |
-            infra/staging/tfplan.out
-            infra/staging/builds/
-          key: terraform-plan
+          terraform-root-path: infra/staging
+          backend-config: ../backend.conf
     outputs:
-      planExitcode: ${{ steps.plan.outputs.exitcode }}
+      planExitcode: ${{ steps.plan.outputs.planExitcode }}
 
   apply:
     needs: [plan]
