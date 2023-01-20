@@ -39,8 +39,6 @@ jobs:
         with:
           terraform_version: 1.3.7
 
-      - uses: actions/checkout@v3
-
       - id: plan
         uses: jordanallen-dev/terraform-cached/plan@v0.5
         with:
