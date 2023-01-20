@@ -40,7 +40,8 @@ jobs:
           terraform_version: 1.3.7
 
       - uses: actions/checkout@v3
-        id: plan
+
+      - id: plan
         uses: jordanallen-dev/terraform-cached/plan@v1
         with:
           terraform-root-path: infra/staging
