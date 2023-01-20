@@ -9,11 +9,12 @@ env:
   TF_RECREATE_MISSING_LAMBDA_PACKAGE: false
 
 concurrency:
-  group: ci-${{ github.ref }}
+  group: ${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   plan:
+    timeout-minutes: 5
     defaults:
       run:
         working-directory: ./infra/staging
@@ -77,6 +78,7 @@ jobs:
     needs: [plan]
     if: always() && needs.plan.result == 'success' && needs.plan.outputs.planExitcode == 2
     environment: staging
+    timeout-minutes: 20
     defaults:
       run:
         working-directory: ./infra/staging
