@@ -8,7 +8,9 @@ on:
 env:
   TF_RECREATE_MISSING_LAMBDA_PACKAGE: false
 
-concurrency: ci-${{ github.ref }}
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   plan:
