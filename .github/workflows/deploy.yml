@@ -69,7 +69,7 @@ jobs:
         id: plan
         run: terraform plan -detailed-exitcode
     outputs:
-      planExitcode: ${{ steps.plan.outputs.planExitcode }}
+      planExitcode: ${{ steps.plan.outputs.exitcode }}
 
   apply:
     needs: [plan]
