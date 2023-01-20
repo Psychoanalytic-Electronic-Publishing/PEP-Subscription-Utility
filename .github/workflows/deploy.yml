@@ -125,7 +125,7 @@ jobs:
       - name: Terraform Apply
         run: terraform apply -input=false -auto-approve
 
- clean:
+  clean:
     needs: [apply]
     if: always()
     runs-on: ubuntu-latest
