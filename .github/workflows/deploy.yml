@@ -46,6 +46,7 @@ jobs:
         with:
           terraform-root-path: infra/staging
           backend-config: ../backend.conf
+        shell: bash
     outputs:
       planExitcode: ${{ steps.plan.outputs.planExitcode }}
 
