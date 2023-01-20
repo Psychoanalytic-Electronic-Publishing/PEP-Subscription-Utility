@@ -53,12 +53,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-terraform-
 
-      - name: Cache Terraform Lock
-        uses: actions/cache@v3
-        with:
-          path: infra/staging
-          key: ${{ runner.os }}-terraform-${{ github.run_id }}
-
       - name: Terraform fmt
         id: fmt
         run: terraform fmt -check
@@ -114,12 +108,6 @@ jobs:
           key: ${{ runner.os }}-terraform-${{ hashFiles('**/.terraform.lock.hcl') }}
           restore-keys: |
             ${{ runner.os }}-terraform-
-
-      - name: Cache Terraform Lock Restore
-        uses: actions/cache/restore@v3
-        with:
-          path: infra/staging
-          key: ${{ runner.os }}-terraform-${{ github.run_id }}
 
       - name: Terraform Apply
         id: apply
