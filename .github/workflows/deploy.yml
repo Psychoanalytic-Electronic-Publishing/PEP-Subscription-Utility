@@ -42,7 +42,7 @@ jobs:
       - name: Cache Terraform
         uses: actions/cache@v3
         with:
-          path: ${{ inputs.terraform-root-path }}
+          path: ./infra/staging
           key: terraform-${{ hashFiles('**/.terraform.lock.hcl') }}
           restore-keys: terraform-
 
@@ -96,7 +96,7 @@ jobs:
       - name: Cache Terraform
         uses: actions/cache@v3
         with:
-          path: ${{ inputs.terraform-root-path }}
+          path: ./infra/staging
           key: terraform-${{ hashFiles('**/.terraform.lock.hcl') }}
           restore-keys: terraform-
 
