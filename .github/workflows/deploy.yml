@@ -51,6 +51,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
+            ./infra/staging/.terraform.lock.hcl
             ./infra/staging/.terraform
             ~/.terraform.d/plugin-cache
           key: ${{ runner.os }}-terraform-${{ hashFiles('**/.terraform.lock.hcl') }}
@@ -112,6 +113,7 @@ jobs:
         uses: actions/cache/restore@v3
         with:
           path: |
+            ./infra/staging/.terraform.lock.hcl
             ./infra/staging/.terraform
             ~/.terraform.d/plugin-cache
           key: ${{ runner.os }}-terraform-${{ hashFiles('**/.terraform.lock.hcl') }}
