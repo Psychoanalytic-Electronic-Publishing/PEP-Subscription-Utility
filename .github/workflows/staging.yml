@@ -13,7 +13,7 @@ jobs:
   infrastructure:
     uses: jordanallen-dev/reusable-terraform-workflow/.github/workflows/terraform.yml@main
     with:
-      module-path: ./infra/staging
+      module-path: infra/staging
       apply-environment: staging
     secrets:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
