@@ -17,4 +17,4 @@ jobs:
     secrets:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      PADS_AUTH_TOKEN: ${{ secrets.STAGING_PADS_AUTH_TOKEN }}
+      TERRAFORM_ENV_VARS: TF_VAR_pads_auth_token=${{ secrets.STAGING_PADS_AUTH_TOKEN}}
