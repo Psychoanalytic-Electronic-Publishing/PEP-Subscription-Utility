@@ -15,7 +15,7 @@ on:
         required: true
       AWS_SECRET_ACCESS_KEY:
         required: true
-      TERRAFORM_ENV_VARS:
+      ENV_VARS:
         required: false
 
 env:
@@ -39,9 +39,8 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-      - name: Configure TF_VARS
-        if: ${{ secrets.TERRAFORM_ENV_VARS }}
-        run: echo "${{ secrets.TERRAFORM_ENV_VARS }}" >> $GITHUB_ENV
+      - name: Configure dynamic environment variables
+        run: echo "${{ secrets.ENV_VARS }}" >> $GITHUB_ENV
 
       - name: Setup Python 3.8
         uses: actions/setup-python@v4
