@@ -1,0 +1,18 @@
+name: Plan and deploy infrastructure
+
+on:
+  push: [main]
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  infrastructure:
+    uses: Psychoanalytic-Electronic-Publishing/PEP-Subscription-Utility/.github/workflows/reusable-deploy.yml@PEP-b44382e6/use-github-actions-for-infra-deployment
+    with:
+      module-path: ./infra/production
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      PADS_AUTH_TOKEN: ${{ secrets.PRODUCTION_PADS_AUTH_TOKEN }}
