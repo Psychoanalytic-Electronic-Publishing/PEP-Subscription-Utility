@@ -13,7 +13,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  call-workflow-test:
+  infrastructure:
     uses: Psychoanalytic-Electronic-Publishing/PEP-Subscription-Utility/.github/workflows/reusable-deploy.yml@PEP-b44382e6/use-github-actions-for-infra-deployment
     with:
       module-path: ./infra/staging
