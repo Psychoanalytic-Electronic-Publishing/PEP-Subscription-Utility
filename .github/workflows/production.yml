@@ -1,7 +1,9 @@
 name: Plan and deploy infrastructure
 
 on:
-  push: [main]
+  push:
+    branches:
+      - main
 
 concurrency:
   group: ${{ github.ref }}
