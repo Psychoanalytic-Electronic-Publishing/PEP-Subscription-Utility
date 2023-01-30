@@ -11,7 +11,7 @@ concurrency:
 
 jobs:
   infrastructure:
-    uses: Psychoanalytic-Electronic-Publishing/PEP-Subscription-Utility/.github/workflows/reusable-deploy.yml@PEP-b44382e6/use-github-actions-for-infra-deployment
+    uses: jordanallen-dev/reusable-terraform-workflow/workflow.yml@main
     with:
       module-path: ./infra/staging
     secrets:
