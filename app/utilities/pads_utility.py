@@ -27,4 +27,3 @@ def get_pads_users():
     except Exception as err:
         print(f'Error getting pads users: {err}')
         raise
-
