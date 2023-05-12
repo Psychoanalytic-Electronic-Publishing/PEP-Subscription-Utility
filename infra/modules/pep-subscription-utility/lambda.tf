@@ -1,11 +1,12 @@
 module "subscription_utility_lambda" {
   source = "terraform-aws-modules/lambda/aws"
 
-  function_name = "${var.stack_name}-handler-${var.env}"
-  source_path   = "../../app"
-  handler       = "subscription_service.handler"
-  runtime       = "python3.8"
-  timeout       = 60
+  function_name           = "${var.stack_name}-handler-${var.env}"
+  source_path             = "../../app"
+  handler                 = "subscription_service.handler"
+  runtime                 = "python3.8"
+  timeout                 = 180
+  ignore_source_code_hash = true
 
   tags = {
     stage = var.env
