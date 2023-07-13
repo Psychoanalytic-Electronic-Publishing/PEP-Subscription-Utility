@@ -4,6 +4,7 @@ import os
 import glob
 from zipfile import ZipFile
 from xml.etree import ElementTree
+import urllib.parse
 s3_client = boto3.client('s3')
 
 
@@ -12,6 +13,8 @@ def download_subscription_file(record):
     try:
         bucket = record['s3']['bucket']['name']
         key = record['s3']['object']['key']
+        key = urllib.parse.unquote(key)
+
         download_path = f'/tmp/{uuid.uuid4()}_{key}'
 
         print(f'downloading {bucket}/{key} to {download_path}')
@@ -34,18 +37,11 @@ def unzip(file_path):
     return extraction_path
 
 
-def parse_subscription_files(dir_path):
+def parse_subscription_file(path):
     try:
-        files = glob.glob(f'{dir_path}/*.xml', recursive=True)
         xml_data = None
-        for f in files:
-            print(f'Parsing {f}')
-            data = ElementTree.parse(f).getroot()
-            if xml_data is None:
-                xml_data = data
-            else:
-                xml_data.extend(data)
-        return xml_data
+        print(f'Parsing {path}')
+        return ElementTree.parse(path).getroot()
     except Exception as err:
         print(f'Error parsing subscription file: {err}')
         raise

@@ -1,12 +1,11 @@
 module "subscription_utility_lambda" {
   source = "terraform-aws-modules/lambda/aws"
 
-  function_name           = "${var.stack_name}-handler-${var.env}"
-  source_path             = "../../app"
-  handler                 = "subscription_service.handler"
-  runtime                 = "python3.8"
-  timeout                 = 180
-  ignore_source_code_hash = true
+  function_name = "${var.stack_name}-handler-${var.env}"
+  source_path   = "../../app"
+  handler       = "subscription_service.handler"
+  runtime       = "python3.8"
+  timeout       = 60
 
   tags = {
     stage = var.env
@@ -73,6 +72,7 @@ resource "aws_iam_role_policy" "s3_policy" {
         Action = [
           "s3:GetObject",
           "s3:ListBucket",
+          "s3:HeadObject"
         ]
         Effect   = "Allow"
         Resource = "${aws_s3_bucket.pep_subscription_updates.arn}/*"

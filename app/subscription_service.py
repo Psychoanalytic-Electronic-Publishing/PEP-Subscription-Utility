@@ -11,8 +11,8 @@ def handler(event, context):
         try:
             # get article files from s3 and parse
             download_path = file_utility.download_subscription_file(record)
-            unzipped_path = file_utility.unzip(download_path)
-            update_data = file_utility.parse_subscription_files(unzipped_path)
+            # unzipped_path = file_utility.unzip(download_path)
+            update_data = file_utility.parse_subscription_file(download_path)
 
             # get users from pads to send new articles to
             pads_users = pads_utility.get_pads_users()
