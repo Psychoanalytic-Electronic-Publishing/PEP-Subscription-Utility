@@ -1,5 +1,5 @@
 locals {
-  pads_auth_token_secret_path = "${var.stack_name}/pads-auth-token/${var.env}"
+  pads_auth_token_secret_path = "${var.stack_name}/pads-token/${var.env}"
 }
 
 resource "aws_secretsmanager_secret" "pads_auth_token" {
